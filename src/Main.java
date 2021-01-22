@@ -3,6 +3,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -41,7 +42,6 @@ public class Main extends Application {
         GridPane nums = new GridPane();
 
         Button[] btns = new Button[12];
-
 
         setup_buttons(nums,btns,field);
 
@@ -121,38 +121,42 @@ public class Main extends Application {
 
     public void process(TextField field) {
         List<String> elm = new ArrayList<String>(Arrays.asList(field.getText().split(" ")));
-        for (int i = 0; i < elm.size(); i++) {
-            double out = 0;
-            if (elm.get(i).equals("+")) {
-                out = Double.parseDouble(elm.get(i - 1)) + Double.parseDouble(elm.get(i + 1));
-                elm.set(i, Double.toString(out));
-                elm.set(i - 1, "");
-                elm.set(i + 1, "");
-                i = 0;
-            } else if (elm.get(i).equals("-")) {
-                out = Double.parseDouble(elm.get(i - 1)) - Double.parseDouble(elm.get(i + 1));
-                elm.set(i, Double.toString(out));
-                elm.set(i - 1, "");
-                elm.set(i + 1, "");
-                i = 0;
-            } else if (elm.get(i).equals("*")) {
-                out = Double.parseDouble(elm.get(i - 1)) * Double.parseDouble(elm.get(i + 1));
-                elm.set(i, Double.toString(out));
-                elm.set(i - 1, "");
-                elm.set(i + 1, "");
-                i = 0;
-            } else if (elm.get(i).equals("/")) {
-                out = Double.parseDouble(elm.get(i - 1)) / Double.parseDouble(elm.get(i + 1));
-                elm.set(i, Double.toString(out));
-                elm.set(i - 1, "");
-                elm.set(i + 1, "");
-                i = 0;
+        try {
+            for (int i = 0; i < elm.size(); i++) {
+                double out = 0;
+                if (elm.get(i).equals("+")) {
+                    out = Double.parseDouble(elm.get(i - 1)) + Double.parseDouble(elm.get(i + 1));
+                    elm.set(i, Double.toString(out));
+                    elm.set(i - 1, "");
+                    elm.set(i + 1, "");
+                    i = 0;
+                } else if (elm.get(i).equals("-")) {
+                    out = Double.parseDouble(elm.get(i - 1)) - Double.parseDouble(elm.get(i + 1));
+                    elm.set(i, Double.toString(out));
+                    elm.set(i - 1, "");
+                    elm.set(i + 1, "");
+                    i = 0;
+                } else if (elm.get(i).equals("*")) {
+                    out = Double.parseDouble(elm.get(i - 1)) * Double.parseDouble(elm.get(i + 1));
+                    elm.set(i, Double.toString(out));
+                    elm.set(i - 1, "");
+                    elm.set(i + 1, "");
+                    i = 0;
+                } else if (elm.get(i).equals("/")) {
+                    out = Double.parseDouble(elm.get(i - 1)) / Double.parseDouble(elm.get(i + 1));
+                    elm.set(i, Double.toString(out));
+                    elm.set(i - 1, "");
+                    elm.set(i + 1, "");
+                    i = 0;
+                }
+
+                elm.removeAll(Arrays.asList("", null));
             }
 
-            elm.removeAll(Arrays.asList("", null));
+            field.setText(elm.get(0));
+        } catch (Exception e){
+            message_box("Error invalid characters in calculator input!");
         }
-
-        field.setText(elm.get(0));
     }
 
     public String refactor(String s) {
@@ -198,6 +202,27 @@ public class Main extends Application {
                 y++;
             }
         }
+    }
+
+    public void message_box(String text){
+        Stage window = new Stage();
+
+        window.setTitle("Error");
+
+        VBox box = new VBox(10);
+        box.setAlignment(Pos.CENTER);
+
+        Label l = new Label(text);
+
+        Button btn = new Button("Exit");
+        btn.setOnAction(e -> window.close());
+
+        box.getChildren().addAll(l, btn);
+
+        Scene scene = new Scene(box, 384 ,100);
+        window.setScene(scene);
+
+        window.showAndWait();
     }
 
     public static void main(String[] args) {
