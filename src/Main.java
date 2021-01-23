@@ -16,6 +16,12 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 
+/*
+*
+* GitHub projekt: https://github.com/TilenOkretic/Kalkulator
+*
+* */
+
 public class Main extends Application {
 
     static int HEIGHT = 550;
