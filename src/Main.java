@@ -18,13 +18,11 @@ import java.util.regex.Pattern;
 
 public class Main extends Application {
 
-
     static int HEIGHT = 550;
     static int WIDTH = 300;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
 
         primaryStage.setTitle("Kalkulator");
 
@@ -51,20 +49,23 @@ public class Main extends Application {
         //  opeations
 
         VBox box = new VBox(10);
+
         Button sum = new Button("+");
+        sum.setPrefSize(50, 50);
         sum.setOnAction(e -> {
             if (isValid(field)) {
                 field.setText(field.getText() + "+");
             }
         });
-        sum.setPrefSize(50, 50);
+
         Button sub = new Button("-");
+        sub.setPrefSize(50, 50);
         sub.setOnAction(e -> {
             if (isValid(field)) {
                 field.setText(field.getText() + "-");
             }
         });
-        sub.setPrefSize(50, 50);
+
         Button mul = new Button("*");
         mul.setPrefSize(50, 50);
         mul.setOnAction(e -> {
@@ -72,6 +73,7 @@ public class Main extends Application {
                 field.setText(field.getText() + "*");
             }
         });
+
         Button div = new Button("/");
         div.setPrefSize(50, 50);
         div.setOnAction(e -> {
@@ -79,6 +81,7 @@ public class Main extends Application {
                 field.setText(field.getText() + "/");
             }
         });
+
         Button eql = new Button("=");
         eql.setPrefSize(50, 50);
         eql.setOnAction(e -> {
@@ -86,11 +89,7 @@ public class Main extends Application {
             process(field);
         });
 
-        box.getChildren().add(sum);
-        box.getChildren().add(sub);
-        box.getChildren().add(mul);
-        box.getChildren().add(div);
-        box.getChildren().add(eql);
+        box.getChildren().addAll(sum, sub, mul, div, eql);
 
         Button clear = new Button("Clear");
         clear.setOnAction(e -> {
